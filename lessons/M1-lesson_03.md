@@ -49,3 +49,33 @@ from galeria.views import index
 # 'path' deve ser inserido dentro da array de 'urlpatterns'
     path('', index)
 ```
+
+Agora que validamos que as configurações estão corretas, devemos isolar as configurações de rotas para o App específicamente. No ínicio do projeto não é um problema usar apenas um arquivo para rotas, porém imagine em um caso real, um projeto sempre terá mais de uma funcionalidade, ou seja, diversos apps, portando esse arquivo de rotas pode se tornar muito extenso e dificil de se atualizar e gerenciar. Uma boa prática é separar um arquivo de rotas para cada app do projeto e depois importa-los no arquivo de rotas do projeto. </br>
+Vamos realizar esta ação neste passo. Faça de acordo com os passos abaixo.
+
+* Criando um arquivo de rotas para o App
+
+Crie um arquivo urls (sempre no plural) dentro do diretório galeria:
+```
+(venv) $ vim galeria/urls.py
+```
+
+Dentro deste arquivo vamos importar o método path e também nossa função index, criando um urlpatterns e configurando a rota para a função (como foi feito anteriormente):
+```
+from django.urls import path 
+from galeria.views import index
+
+urlpatterns = [
+    path('', index)
+]
+```
+
+* Importando o arquivo de rotas do app no arquivo do projeto
+
+Para o Django reconhecer o nosso arquivo de rotas novo, precisamos incluir esse arquivo rotas dentro urls.py que está localizado na raiz do projeto. Para isso vamos usar um metodo chamado include que é nativo do Django (não será mais necessária a linha de importação do views):
+```
+from django.urls import path, include
+
+# 'path' deve ser inserido dentro da array de 'urlpatterns'
+    path('', include('galeria.urls')),
+```
