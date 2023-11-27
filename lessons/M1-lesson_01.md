@@ -34,3 +34,110 @@ Para criar um projeto Django primeiro vamos preparar o ambiente. Os ponto inicia
 6. Criar o projeto Django.
 7. Criar o arquivo de requirements.txt.
 8. Iniciar o server.
+
+---
+
+1. **Instalando o Python3**
+
+Utilize o primeiro comando para instalar a versão mais rescente do Python3 e em seguida, utilize o comando "ln" para criar links simbólicos para a execução do python através de comandos "python" e/ou "py": 
+```
+$ sudo apt install python3 -y
+$ sudo ln -s /usr/bin/python3 /usr/bin/python
+$ sudo ln -s /usr/bin/python3 /usr/bin/py 
+``` 
+
+2. **Instalando o PIP**
+
+Utilize o comando abaixo para instalar o python3-pip. Essa dependência é importante para o gerenciamento de pacotes isolatos em seus pacotes Django.
+```
+$ sudo apt install python3-django -y
+```
+
+3. **Instalando o virtualenv**
+
+Instalar o virtualenv é crucial para o isolamento do pacotes e dependências do projeto. Execute o comando abaixo para instala-lo:
+```
+$ sudo apt install python3-virtualenv -y
+```
+
+4. **Configurando um ENV para o projeto**
+
+Uma boa prática para a criação de um projeto Django é isolar todos e pacotes e dependências em um ambiente vitual python. É importante também armazenar todos os arquivos em um unico diretório. Para realizar esta tarefa execute os comandos abaixo:
+```
+$ mkdir django-app_python
+$ cd django-app_python
+$ virtualenv venv
+```
+
+OBS: O nome venv é uma convenção das boas práticas para a criação do ambiente virtual.
+
+Ao criar o env agora você precisa executa-lo para começar a instalar as dependês do Django:
+```
+$ source venv/bin/activate
+```
+
+Pode-se confirmar a inicialização do ambiente virtual através da informação que aparece ao lado do seu usuário no terminal:
+```
+(venv) user@host $
+```
+
+5. **Instalando o Django**
+
+Agora que vem o pulo do gato. Com o venv ativado vamos usar o PIP para instalar o django somente nesse ambiente virtual:
+```
+(venv) $ pip install django
+```
+
+A saída deve ser algo como:
+```
+Collecting django
+  Downloading Django-4.2.7-py3-none-any.whl (8.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.0/8.0 MB 37.1 MB/s eta 0:00:00
+Collecting asgiref<4,>=3.6.0
+  Downloading asgiref-3.7.2-py3-none-any.whl (24 kB)
+Collecting sqlparse>=0.3.1
+  Downloading sqlparse-0.4.4-py3-none-any.whl (41 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 41.2/41.2 kB 6.2 MB/s eta 0:00:00
+Installing collected packages: sqlparse, asgiref, django
+Successfully installed asgiref-3.7.2 django-4.2.7 sqlparse-0.4.4
+```
+
+6. **Criando o projeto Django**
+
+Para criar um projeto Django é muito simples, basta usar o comando django-admin com a seguinte sintaxe "$ django-admin startproject <name> .". O nome do projeto hoje também é uma convensão, variando entre "config" e "setup":
+```
+(venv) $ django-admin startproject setup 
+```
+
+7. **Criando o arquivo de requirements**
+
+Para criar o arquivo de requirement também vamos utilizar o PIP. No começo do projeto é facil manipular e atualizar esse arquivo manualmente, porém ao decorrer do desenvolvimento as chances de se ter informações incorretas ou ausentes são grandes, por isso o PIP tem uma ação chamada FREEZE que lista todas as dependências do projeto. Para criar o arquivo para direciona a saída conforme o comando abaixo:
+```
+(venv) $ pip freeze > requirements.txt
+```
+
+OBS: Esse comando deve ser utilizado toda vez que o pip install for rodado no seu ambiente virtual, para manter o arquivo de requirements atualizado.
+
+8. **Inciiando o servidor**
+
+Agora vamos iniciar o servidor virtual para acessar nossa aplicação com um dos dois comandos (de acordo):
+```
+(venv) $ python manage.py runserver
+(venv) $ py manage.py runserver
+```
+
+### Conclusão
+
+A utilização de ambientes virtuais em projetos Python é uma prática padrão no desenvolvimento de software com a linguagem. O consenso da comunidade Python de que ambientes virtuais são uma ótima prática levou à criação de vários projetos com o objetivo de oferecer versões alternativas de ambientes virtuais e novas formas de gerenciá-los.
+
+A seguir temos alguns exemplos de ambientes virtuais e ferramentas relacionadas mais utilizadas no mercado:
+
+* **venv:** É o ambiente virtual “padrão” do Python e sua grande vantagem é já vir instalado como um módulo na linguagem a partir da versão 3.3. Se trata de um subset (parte menor) da ferramenta virtualenv.
+* **Virtualenv:** É uma ferramenta feita especificamente para a criação de ambientes virtuais e precede a criação da venv, sendo um superset (parte maior) dela. Algumas de sua principais vantagens sobre a venv são:
+    * Maior velocidade, graças ao método app-data seed;
+    * Pode criar ambientes virtuais para versões arbitrárias do Python instaladas na máquina;
+    * Pode ser atualizado utilizando a ferramenta pip;
+    * Possui uma Programmatic API, capaz de descrever um ambiente virtual sem criá-lo.
+* **Conda:** É uma alternativa não apenas às ferramentas de ambiente virtuais já citadas, mas ao instalador de pacotes pip também. Possui um escopo mais centrado na área de ciência de dados e possui a capacidade de instalar pacotes fora do ecossistema do Python.
+* **Virtualenvwrapper:** É uma extensão do projeto Virtualenv que torna a criação, deleção e gerenciamento geral dos ambientes virtuais mais fácil. Uma grande vantagem de sua utilização é a organização de todos os ambientes virtuais utilizados em um só lugar, além de facilitar os comandos de CLI.
+* **Poetry:** É uma ferramenta para gerenciamento de dependências e pacotes do Python. Através do Poetry é possível declarar quais pacotes um projeto necessita para funcionar, de forma parecida ao requirements.txt, porém, de forma determinística.
