@@ -1,15 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from galeria.models import Fotografia
 
 def index(request):
+    fotografias = Fotografia.objects.order_by("data").filter(publicada=True)
+
+    return render(request, 'galeria/index.html', {"cards": fotografias})
+
+def imagem(request, foto_id):
+    fotografia = get_object_or_404(Fotografia, pk=foto_id)
+    return render(request, 'galeria/imagem.html', {"fotografia": fotografia})
+
+def buscar(request):
+    fotografias = Fotografia.objects.order_by("data").filter(publicada=True)
+
+    if "buscar" in request.GET:
+        palavra = request.GET['buscar']
+        if palavra:
+            fotografias = fotografias.filter(nome__icontains=palavra)
     
-    dados = {
-    1: {"nome": "Nebulosa de Carina",
-        "legenda": "webbtelescope.org/ NASA / James Web"},
-    2: {"nome": "Galáxia NGC 1079",
-        "legenda": "nasa.org/ NASA / Hubble"},
-    }
-
-    return render(request, 'galeria/index.html', {"cards": dados})
-
-def imagem(request):
-    return render(request, 'galeria/imagem.html')
+    return render(request, 'galeria/buscar.html', {"cards": fotografias})
