@@ -11,17 +11,17 @@ def cadastro(request):
     form = CadastroForms()
 
     if request.method == 'POST':
-        form == CadastroForms(request.POST)
-        
+        form = CadastroForms(request.POST)
+
         if form.is_valid():
-            if form['senha_1'].value() != form['senha_2'].value():
+            if form["senha_1"].value() != form["senha_2"].value():
                 return redirect('cadastro')
 
             nome=form['nome_cadastro'].value()
             email=form['email'].value()
             senha=form['senha_1'].value()
 
-            if User.objects.filter(email=nome).exists():
+            if User.objects.filter(email=email).exists():
                 return redirect('cadastro')
 
             usuario = User.objects.create_user(
@@ -29,7 +29,6 @@ def cadastro(request):
                 email=email,
                 password=senha
             )
-            
             usuario.save()
             return redirect('login')
 
