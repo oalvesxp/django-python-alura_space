@@ -8,6 +8,8 @@ class Fotografia(models.Model):
         ("ESTRELA", "Estrela"),
         ("GALAXIA", "Galaxia"),
         ("PLANETAS", "Planeta"),
+        ("TELESCOPIOS", "Telescopios"),
+        ("SATELITES", "Satelites"),
     ]
 
     nome = models.CharField(max_length=100, null=False, blank=False)
@@ -15,7 +17,7 @@ class Fotografia(models.Model):
     categoria = models.CharField(max_length=100, choices=CATEGORIAS, default='')
     descricao = models.TextField(null=False, blank=False)
     foto = models.ImageField(upload_to="fotos/%Y/%m/%d/",blank=True)
-    publicada = models.BooleanField(default=False)
+    publicada = models.BooleanField(default=True)
     data = models.DateTimeField(default=datetime.now, blank=False)
     usuario = models.ForeignKey(
         to=User,
