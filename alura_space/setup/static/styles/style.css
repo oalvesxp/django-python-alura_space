@@ -407,6 +407,12 @@ table {
     --bs-alert-border-color: #badbcc;
 }
 
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
