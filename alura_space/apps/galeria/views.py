@@ -28,7 +28,7 @@ def buscar(request):
         if palavra:
             fotografias = fotografias.filter(nome__icontains=palavra)
     
-    return render(request, 'galeria/buscar.html', {"cards": fotografias})
+    return render(request, 'galeria/index.html', {"cards": fotografias})
 
 def nova_imagem(request):
     if not request.user.is_authenticated:
