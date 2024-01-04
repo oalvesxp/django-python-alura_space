@@ -66,3 +66,7 @@ def deletar_imagem(request, foto_id):
     messages.success(request, 'Fotografia deletada com sucesso')
     return redirect('index')
 
+def filtro(request, categoria):
+    fotografias = Fotografia.objects.order_by("data").filter(publicada=True, categoria=categoria)
+
+    return render(request, 'galeria/index.html', {"cards": fotografias})
